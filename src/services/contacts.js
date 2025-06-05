@@ -43,12 +43,12 @@ export const getContactById = async (contactId, userId) => {
     return await Contact.findOne({_id:contactId, userId});
 };
 
-export const createContact = async (payload, userId) => {
-    return await Contact.create({...payload, userId});
+export const createContact = async (payload, photoUrl, userId) => {
+    return await Contact.create({...payload, photo: photoUrl, userId});
 };
 
-export const updateContact = async(contactId, userId, payload) => {
-    return await Contact.findOneAndUpdate({ _id: contactId, userId }, payload, { new: true });
+export const updateContact = async(contactId, userId, payload, photoUrl) => {
+    return await Contact.findOneAndUpdate({ _id: contactId, userId }, {...payload, photo: photoUrl}, { new: true });
 };
 
 export const deleteContact = async (contactId, userId) => {
