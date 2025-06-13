@@ -4,6 +4,14 @@ required:
   - phoneNumber
   - contactType
 properties:
+  _id:
+    description: 'Contact id'
+    type: string
+    example: '6839dc66812ffad184130baf'
+  userId:
+    description: 'ID of the user who created the contact'
+    type: string
+    example: '68406f45b281423eadb03aa2'
   name:
     description: "Contact's name"
     type: string
@@ -28,3 +36,9 @@ properties:
     description: "Link to contact's photo"
     type: string
     example: https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg
+  createdAt:
+    type: string
+    format: date-time
+  updatedAt:
+    type: string
+    format: date-time

@@ -34,6 +34,11 @@ parameters:
       type: string
       enum: ['work', 'home', 'personal']
       example: 'home'
+  - in: query
+    name: isFavourite
+    schema:
+      type: boolean
+      example: false
 responses:
   '200':
     description: Successfully found students!
@@ -86,6 +91,8 @@ responses:
                   type: boolean
                   example: true
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../components/responses/contacts/401.yaml'
   '404':
-    $ref: ../../components/responses/404.yaml
+    $ref: ../../components/responses/contacts/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
