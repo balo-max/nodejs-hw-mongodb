@@ -234,9 +234,8 @@
                   },
                   "photo": {
                     "description": "Link to contact's photo",
-                    "type": "string",
-                    "format": "url",
-                    "example": "https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg"
+                    "format": "binary",
+                    "type": "string"
                   }
                 }
               }
@@ -408,7 +407,6 @@
                   "photo": {
                     "description": "Link to contact's photo",
                     "type": "string",
-                    "format": "url",
                     "example": "https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg"
                   }
                 }
@@ -617,7 +615,7 @@
                 "description": "HttpOnly cookies with sessionId and refreshToken",
                 "schema": {
                   "type": "string",
-                  "example": "sessionId=abc123; HttpOnly; Secure;\nrefreshToken=def456; HttpOnly; Secure;\n"
+                  "example": "sessionId=abc123; HttpOnly;\nrefreshToken=def456; HttpOnly;\n"
                 }
               }
             },
@@ -677,6 +675,26 @@
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "schema": {
+              "type": "string"
+            },
+            "example": "j%3A%22684d2831a07b6138cba4e9a3%22",
+            "required": true
+          },
+          {
+            "in": "cookie",
+            "name": "refreshToken",
+            "schema": {
+              "type": "string"
+            },
+            "example": "DEBEiUSjKoV%2FXNv%2B97VnndxSrKBcmgV7Kc%2BfcksB",
+            "required": true
           }
         ],
         "responses": {
@@ -740,8 +758,33 @@
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "schema": {
+              "type": "string"
+            },
+            "example": "j%3A%22684d2831a07b6138cba4e9a3%22",
+            "required": true
+          }
+        ],
         "responses": {
           "204": {
+            "headers": {
+              "Set-Cookie": {
+                "description": "Cleared sessionId and refreshToken cookies",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "sessionId=; HttpOnly; Path=/;"
+                  }
+                },
+                "style": "simple",
+                "explode": true
+              }
+            },
             "description": "Logout user successfully"
           },
           "401": {
@@ -953,6 +996,7 @@
           "photo": {
             "description": "Link to contact's photo",
             "type": "string",
+            "format": "url",
             "example": "https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg"
           },
           "createdAt": {

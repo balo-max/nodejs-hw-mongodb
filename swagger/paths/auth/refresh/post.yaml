@@ -5,6 +5,19 @@ operationId: refreshUser
 description: 'Refresh user'
 security:
   - bearerAuth: []
+parameters:
+  - in: cookie
+    name: sessionId
+    schema:
+      type: string
+    example: 'j%3A%22684d2831a07b6138cba4e9a3%22'
+    required: true
+  - in: cookie
+    name: refreshToken
+    schema:
+      type: string
+    example: 'DEBEiUSjKoV%2FXNv%2B97VnndxSrKBcmgV7Kc%2BfcksB'
+    required: true
 responses:
   '200':
     description: 'User session successfully refreshed'

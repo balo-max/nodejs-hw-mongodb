@@ -5,8 +5,25 @@ operationId: logoutUser
 description: 'Logout user'
 security:
   - bearerAuth: []
+parameters:
+  - in: cookie
+    name: sessionId
+    schema:
+      type: string
+    example: 'j%3A%22684d2831a07b6138cba4e9a3%22'
+    required: true
 responses:
   '204':
+    headers:
+      Set-Cookie:
+        description: 'Cleared sessionId and refreshToken cookies'
+        schema:
+          type: array
+          items:
+            type: string
+            example: sessionId=; HttpOnly; Path=/;
+        style: simple
+        explode: true
     description: 'Logout user successfully'
   '401':
     $ref: ../../../components/responses/auth/401-2.yaml
