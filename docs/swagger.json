@@ -88,16 +88,14 @@
                 "work",
                 "home",
                 "personal"
-              ],
-              "example": "home"
+              ]
             }
           },
           {
             "in": "query",
             "name": "isFavourite",
             "schema": {
-              "type": "boolean",
-              "example": false
+              "type": "boolean"
             }
           }
         ],
@@ -237,6 +235,7 @@
                   "photo": {
                     "description": "Link to contact's photo",
                     "type": "string",
+                    "format": "url",
                     "example": "https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg"
                   }
                 }
@@ -409,6 +408,7 @@
                   "photo": {
                     "description": "Link to contact's photo",
                     "type": "string",
+                    "format": "url",
                     "example": "https://res.cloudinary.com/dh0wcgrhc/image/upload/v1749148752/ktuoij9iktjyk7ibdnbm.jpg"
                   }
                 }
@@ -482,23 +482,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete contact by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Delete contact by id"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -628,6 +612,15 @@
         "responses": {
           "200": {
             "description": "Logged in an user",
+            "headers": {
+              "Set-Cookie": {
+                "description": "HttpOnly cookies with sessionId and refreshToken",
+                "schema": {
+                  "type": "string",
+                  "example": "sessionId=abc123; HttpOnly; Secure;\nrefreshToken=def456; HttpOnly; Secure;\n"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -648,7 +641,13 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/loginUser"
+                      "properties": {
+                        "accessToken": {
+                          "description": "Access Token",
+                          "type": "string",
+                          "example": "xep6jBmup7XcIzfqtr0X5ZIPTQnGTsetBTdqNX/E"
+                        }
+                      }
                     }
                   }
                 }
@@ -682,7 +681,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Refreshed in an user",
+            "description": "User session successfully refreshed",
             "content": {
               "application/json": {
                 "schema": {
@@ -703,7 +702,13 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/loginUser"
+                      "properties": {
+                        "accessToken": {
+                          "description": "Access Token",
+                          "type": "string",
+                          "example": "xep6jBmup7XcIzfqtr0X5ZIPTQnGTsetBTdqNX/E"
+                        }
+                      }
                     }
                   }
                 }
@@ -990,21 +995,6 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
-          }
-        }
-      },
-      "loginUser": {
-        "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
-        "properties": {
-          "accessToken": {
-            "description": "Access Token",
-            "type": "string",
-            "example": "xep6jBmup7XcIzfqtr0X5ZIPTQnGTsetBTdqNX/E"
           }
         }
       }

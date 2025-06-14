@@ -24,6 +24,14 @@ requestBody:
 responses:
   '200':
     description: 'Logged in an user'
+    headers:
+      Set-Cookie:
+        description: HttpOnly cookies with sessionId and refreshToken
+        schema:
+          type: string
+          example: |
+            sessionId=abc123; HttpOnly;
+            refreshToken=def456; HttpOnly;
     content:
       application/json:
         schema:
@@ -41,7 +49,11 @@ responses:
               example: Successfully logged in an user!
             data:
               type: object
-              $ref: ../../../components/schemas/loginUser.yaml
+              properties:
+                accessToken:
+                  description: Access Token
+                  type: string
+                  example: xep6jBmup7XcIzfqtr0X5ZIPTQnGTsetBTdqNX/E
   '401':
     $ref: ../../../components/responses/auth/401-2.yaml
   '404':

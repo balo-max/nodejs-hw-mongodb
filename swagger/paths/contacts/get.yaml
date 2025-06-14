@@ -33,12 +33,10 @@ parameters:
     schema:
       type: string
       enum: ['work', 'home', 'personal']
-      example: 'home'
   - in: query
     name: isFavourite
     schema:
       type: boolean
-      example: false
 responses:
   '200':
     description: Successfully found students!
